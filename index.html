@@ -82,6 +82,61 @@
       font-size: 0.8rem;
     }
 
+    .section-title {
+      margin: 36px 0 16px;
+    }
+
+    .tag-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .tag-card {
+      background-color: #252525;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .tag-name {
+      display: inline-block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f1f1f1;
+      background-color: #353535;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .tag-count {
+      font-size: 0.82rem;
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+
+    .tag-question-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .tag-question-list li {
+      margin-bottom: 8px;
+    }
+
+    .tag-question-list a {
+      color: #4ea9ff;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .tag-question-list a:hover {
+      text-decoration: underline;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -95,15 +150,15 @@
   <header>
     <div class="logo">VibeVerse</div>
     <nav>
-      <a href="#">Questions</a>
-      <a href="#">Tags</a>
+      <a href="#top-questions">Questions</a>
+      <a href="#tag-questions">Tags</a>
       <a href="#">Users</a>
       <a href="#">Ask Question</a>
     </nav>
   </header>
 
   <div class="container">
-    <h2>Top Questions</h2>
+    <h2 id="top-questions">Top Questions</h2>
 
     <div class="question-card">
       <div class="question-title">How do I fix a CORS issue in my API?</div>
@@ -131,6 +186,45 @@
       <div class="tags">
         <span>node.js</span>
         <span>architecture</span>
+      </div>
+    </div>
+
+    <h2 id="tag-questions" class="section-title">Tag-wise Questions</h2>
+    <div class="tag-grid">
+      <div class="tag-card">
+        <div class="tag-name">javascript</div>
+        <div class="tag-count">2 questions</div>
+        <ul class="tag-question-list">
+          <li><a href="#">How do I fix a CORS issue in my API?</a></li>
+          <li><a href="#">What is event delegation in JavaScript?</a></li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">css</div>
+        <div class="tag-count">2 questions</div>
+        <ul class="tag-question-list">
+          <li><a href="#">Why does my CSS grid layout break on mobile?</a></li>
+          <li><a href="#">How can I center a div with Flexbox?</a></li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">node.js</div>
+        <div class="tag-count">2 questions</div>
+        <ul class="tag-question-list">
+          <li><a href="#">Best way to structure a Node.js project?</a></li>
+          <li><a href="#">How do I use middleware in Express?</a></li>
+        </ul>
+      </div>
+
+      <div class="tag-card">
+        <div class="tag-name">api</div>
+        <div class="tag-count">2 questions</div>
+        <ul class="tag-question-list">
+          <li><a href="#">How do I fix a CORS issue in my API?</a></li>
+          <li><a href="#">REST vs GraphQL for internal services?</a></li>
+        </ul>
       </div>
     </div>
   </div>
