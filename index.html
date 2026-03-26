@@ -1,142 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VibeVerse Homepage (Dark)</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #1e1e1e;
-      color: #e0e0e0;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      background-color: #2d2d2d;
-      border-bottom: 1px solid #3a3a3a;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    header .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #f48024;
-    }
-
-    header nav a {
-      color: #e0e0e0;
-      text-decoration: none;
-      margin-left: 20px;
-    }
-
-    header nav a:hover {
-      color: #f48024;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .question-card {
-      background-color: #252525;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-      margin-bottom: 20px;
-      border: 1px solid #333;
-    }
-
-    .question-title {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #4ea9ff;
-    }
-
-    .question-title:hover {
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    .question-meta {
-      font-size: 0.85rem;
-      opacity: 0.8;
-      margin-bottom: 8px;
-    }
-
-    .tags span {
-      display: inline-block;
-      background-color: #333;
-      color: #bbb;
-      padding: 4px 8px;
-      border-radius: 5px;
-      margin-right: 6px;
-      font-size: 0.8rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      font-size: 0.85rem;
-      opacity: 0.6;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="logo">VibeVerse</div>
-    <nav>
-      <a href="#">Questions</a>
-      <a href="#">Tags</a>
-      <a href="#">Users</a>
-      <a href="#">Ask Question</a>
-    </nav>
-  </header>
-
-  <div class="container">
-    <h2>Top Questions</h2>
-
-    <div class="question-card">
-      <div class="question-title">How do I fix a CORS issue in my API?</div>
-      <div class="question-meta">12 votes • 5 answers • asked 2 hours ago</div>
-      <div class="tags">
-        <span>javascript</span>
-        <span>api</span>
-        <span>cors</span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VibeVerse — Write like Medium</title>
+    <style>
+      :root {
+        --bg: #f7f4ed;
+        --paper: #ffffff;
+        --ink: #242424;
+        --muted: #6b6b6b;
+        --brand: #1a8917;
+        --line: #e6e6e6;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+      }
+      a { color: inherit; text-decoration: none; }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid var(--line);
+      }
+      .topbar-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .brand {
+        font-size: 1.9rem;
+        font-family: Georgia, serif;
+        letter-spacing: -0.03em;
+        font-weight: 700;
+      }
+      .search {
+        flex: 1;
+        max-width: 420px;
+        background: #f1f1f1;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 9px 14px;
+      }
+      .search:focus { outline: none; border-color: var(--brand); background: #fff; }
+      .btn {
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: #fff;
+        border-radius: 999px;
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+      .btn.secondary {
+        background: transparent;
+        color: var(--ink);
+      }
+      .layout {
+        max-width: 1200px;
+        margin: 22px auto;
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 22px;
+        padding: 0 20px 30px;
+      }
+      .feed, .panel {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+      }
+      .feed-head {
+        border-bottom: 1px solid var(--line);
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .tabs { display: flex; gap: 16px; }
+      .tab {
+        border: none;
+        background: transparent;
+        color: var(--muted);
+        font-weight: 600;
+        cursor: pointer;
+        padding-bottom: 8px;
+      }
+      .tab.active {
+        color: var(--ink);
+        border-bottom: 2px solid var(--ink);
+      }
+      .stories { padding: 6px 0; }
+      .story {
+        padding: 18px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+      .story:last-child { border-bottom: none; }
+      .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+      .story h2 {
+        margin: 0 0 8px;
+        font-size: 1.3rem;
+        line-height: 1.25;
+      }
+      .excerpt { color: #3f3f3f; margin-bottom: 10px; }
+      .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+      .chip {
+        font-size: 0.8rem;
+        color: #555;
+        background: #f2f2f2;
+        border-radius: 999px;
+        padding: 4px 10px;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .tiny {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+      .panel { padding: 18px; display: grid; gap: 18px; height: fit-content; }
+      .panel h3 { margin: 0 0 8px; font-size: 1.05rem; }
+      .input, .textarea {
+        width: 100%;
+        border: 1px solid #d8d8d8;
+        border-radius: 8px;
+        padding: 10px;
+        font: inherit;
+      }
+      .textarea { min-height: 140px; resize: vertical; }
+      .form-grid { display: grid; gap: 10px; }
+      .helper { color: var(--muted); font-size: 0.85rem; margin: 0; }
+      .empty {
+        padding: 30px 20px;
+        text-align: center;
+        color: var(--muted);
+      }
+      @media (max-width: 980px) {
+        .layout { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">VibeVerse</div>
+        <input id="search" class="search" placeholder="Search stories, tags, authors..." />
+        <button class="btn" id="newStoryBtn">Write</button>
       </div>
-    </div>
+    </header>
 
-    <div class="question-card">
-      <div class="question-title">Why does my CSS grid layout break on mobile?</div>
-      <div class="question-meta">8 votes • 2 answers • asked 5 hours ago</div>
-      <div class="tags">
-        <span>css</span>
-        <span>responsive-design</span>
-        <span>grid</span>
-      </div>
-    </div>
+    <main class="layout">
+      <section class="feed">
+        <div class="feed-head">
+          <div class="tabs">
+            <button class="tab active" data-filter="all">For you</button>
+            <button class="tab" data-filter="popular">Popular</button>
+            <button class="tab" data-filter="recent">Recent</button>
+          </div>
+          <small id="storyCount"></small>
+        </div>
+        <div class="stories" id="stories"></div>
+      </section>
 
-    <div class="question-card">
-      <div class="question-title">Best way to structure a Node.js project?</div>
-      <div class="question-meta">21 votes • 7 answers • asked 1 day ago</div>
-      <div class="tags">
-        <span>node.js</span>
-        <span>architecture</span>
-      </div>
-    </div>
-  </div>
+      <aside class="panel">
+        <section>
+          <h3>Publish a story</h3>
+          <form id="storyForm" class="form-grid">
+            <input class="input" id="title" placeholder="Title" required />
+            <input class="input" id="author" placeholder="Author" required />
+            <input class="input" id="tags" placeholder="Tags (comma separated)" />
+            <textarea class="textarea" id="content" placeholder="Tell your story..." required></textarea>
+            <button class="btn" type="submit">Publish</button>
+            <p class="helper">Stories are saved in your browser storage.</p>
+          </form>
+        </section>
 
-  <footer>
-    © 2025 VibeVerse — A VibeVerse Q&A Platform
-  </footer>
-</body>
+        <section>
+          <h3>Writing tips</h3>
+          <p class="helper">Lead with one strong idea, keep paragraphs short, and use tags to help readers discover your work.</p>
+        </section>
+      </aside>
+    </main>
+
+    <script>
+      const STORAGE_KEY = 'vibeverse_stories_v2';
+      const seedStories = [
+        {
+          id: crypto.randomUUID(),
+          title: 'How to find your writing voice in 30 days',
+          author: 'Aria Lane',
+          content: 'A writing voice appears when you repeat a point of view often enough that it becomes unmistakable. Start by publishing daily micro-essays and review what language patterns you naturally repeat.',
+          tags: ['writing', 'creativity'],
+          claps: 128,
+          createdAt: '2026-03-10T10:00:00.000Z'
+        },
+        {
+          id: crypto.randomUUID(),
+          title: 'The 5-minute editing pass that improves every draft',
+          author: 'Jon Rivera',
+          content: 'Before sharing your draft, do one pass for verbs only. Replace weak verbs and cut adverbs. This tiny habit creates cleaner, more confident prose in minutes.',
+          tags: ['editing', 'productivity'],
+          claps: 82,
+          createdAt: '2026-03-22T17:20:00.000Z'
+        }
+      ];
+
+      let activeFilter = 'all';
+      let stories = loadStories();
+      const ui = {
+        stories: document.getElementById('stories'),
+        storyCount: document.getElementById('storyCount'),
+        search: document.getElementById('search'),
+        form: document.getElementById('storyForm'),
+        newStoryBtn: document.getElementById('newStoryBtn'),
+        title: document.getElementById('title'),
+        author: document.getElementById('author'),
+        tags: document.getElementById('tags'),
+        content: document.getElementById('content')
+      };
+
+      function loadStories() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(seedStories));
+          return [...seedStories];
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : [...seedStories];
+        } catch {
+          return [...seedStories];
+        }
+      }
+
+      function saveStories() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stories));
+      }
+
+      function formatDate(iso) {
+        return new Date(iso).toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        });
+      }
+
+      function excerpt(text) {
+        return text.length > 160 ? `${text.slice(0, 157)}...` : text;
+      }
+
+      function filteredStories() {
+        const q = ui.search.value.trim().toLowerCase();
+        let list = [...stories];
+
+        if (activeFilter === 'popular') {
+          list.sort((a, b) => b.claps - a.claps);
+        } else if (activeFilter === 'recent') {
+          list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        } else {
+          list.sort((a, b) => (b.claps * 2 + new Date(b.createdAt).getTime()) - (a.claps * 2 + new Date(a.createdAt).getTime()));
+        }
+
+        if (!q) return list;
+
+        return list.filter(story => {
+          const haystack = `${story.title} ${story.author} ${story.content} ${story.tags.join(' ')}`.toLowerCase();
+          return haystack.includes(q);
+        });
+      }
+
+      function renderStories() {
+        const list = filteredStories();
+        ui.storyCount.textContent = `${list.length} story${list.length === 1 ? '' : 'ies'}`;
+
+        if (!list.length) {
+          ui.stories.innerHTML = `<div class="empty">No stories found. Try a different search or publish one.</div>`;
+          return;
+        }
+
+        ui.stories.innerHTML = list.map(story => `
+          <article class="story">
+            <div class="meta">${story.author} · ${formatDate(story.createdAt)} · ${Math.max(1, Math.ceil(story.content.split(' ').length / 220))} min read</div>
+            <h2>${escapeHtml(story.title)}</h2>
+            <p class="excerpt">${escapeHtml(excerpt(story.content))}</p>
+            <div class="chips">${story.tags.map(t => `<span class="chip">${escapeHtml(t)}</span>`).join('')}</div>
+            <div class="actions">
+              <button class="tiny" data-action="clap" data-id="${story.id}">👏 ${story.claps}</button>
+              <button class="tiny" data-action="open" data-id="${story.id}">Read</button>
+              <button class="tiny" data-action="delete" data-id="${story.id}">Delete</button>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      function escapeHtml(v) {
+        return v.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          activeFilter = tab.dataset.filter;
+          renderStories();
+        });
+      });
+
+      ui.search.addEventListener('input', renderStories);
+
+      ui.form.addEventListener('submit', e => {
+        e.preventDefault();
+        const title = ui.title.value.trim();
+        const author = ui.author.value.trim();
+        const content = ui.content.value.trim();
+        const tags = ui.tags.value.split(',').map(t => t.trim()).filter(Boolean);
+
+        if (!title || !author || !content) return;
+
+        stories.unshift({
+          id: crypto.randomUUID(),
+          title,
+          author,
+          content,
+          tags,
+          claps: 0,
+          createdAt: new Date().toISOString()
+        });
+
+        saveStories();
+        ui.form.reset();
+        activeFilter = 'recent';
+        document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.filter === 'recent'));
+        renderStories();
+      });
+
+      ui.newStoryBtn.addEventListener('click', () => {
+        ui.title.focus();
+      });
+
+      ui.stories.addEventListener('click', e => {
+        const button = e.target.closest('button[data-action]');
+        if (!button) return;
+        const { action, id } = button.dataset;
+        const idx = stories.findIndex(s => s.id === id);
+        if (idx < 0) return;
+
+        if (action === 'clap') {
+          stories[idx].claps += 1;
+          saveStories();
+          renderStories();
+          return;
+        }
+
+        if (action === 'delete') {
+          stories.splice(idx, 1);
+          saveStories();
+          renderStories();
+          return;
+        }
+
+        if (action === 'open') {
+          const story = stories[idx];
+          alert(`${story.title}\n\nBy ${story.author}\n${formatDate(story.createdAt)}\n\n${story.content}`);
+        }
+      });
+
+      renderStories();
+    </script>
+  </body>
 </html>
